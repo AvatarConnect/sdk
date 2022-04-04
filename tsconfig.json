@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src",
+    "target": "es6",
+    "module": "commonjs",
+    "lib": ["esnext", "dom"],
+    "declaration": true,
+    "outDir": "dist",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "~/*": ["./*"]
+    },
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "tsconfig.json", "webpack.config.js"]
+}
