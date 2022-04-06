@@ -4,6 +4,9 @@ export const OutboundEvents = {
 }
 
 export const BridgeEvents = {
+  /** Triggered when the close button is clicked */
+  CLOSE: 'close',
+
   /** Triggered when an error occurs in the iframe */
   ERROR: 'error',
 
@@ -15,6 +18,9 @@ export const BridgeEvents = {
 }
 
 export const ResponseEvents = {
+  /** Triggered when the user closes the modal */
+  CLOSE: 'close',
+
   /** Triggered when an error occurs in the iframe */
   ERROR: 'error',
 

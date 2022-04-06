@@ -1,53 +1,46 @@
 import { EventEmitter } from 'events'
 
+import Bridge from './bridge'
+import { AvatarConnectError } from './errors'
 import { BridgeEvents, OutboundEvents, ResponseEvents } from './events'
 import { BridgeError, BridgeResult, SdkConfiguration } from './types'
 
 const MAJOR_VERSION = '__WEBPACK_VERSION_STUB__'
 const DEFAULT_BRIDGE_URL = `https://v${MAJOR_VERSION}.avatarconnect.org`
 
-const createError = (message: string): Error =>
-  new Error(`[@avatarconnect/sdk] ${message}`)
-
 class AvatarConnect extends EventEmitter {
-  private readonly iframeReference: HTMLIFrameElement
   private readonly bridgeUrl: string
   private readonly configuration: SdkConfiguration
+  private readonly bridge: Bridge
 
-  constructor(
-    iframeReference: HTMLIFrameElement,
-    providers = [],
-    { bridgeUrl = DEFAULT_BRIDGE_URL } = {}
-  ) {
+  constructor(providers = [], { bridgeUrl = DEFAULT_BRIDGE_URL } = {}) {
     super()
     if (!window)
-      throw createError('This cannot be used in a non-browser context')
-    if (!iframeReference)
-      throw createError('You must provide an iframe reference')
+      throw new AvatarConnectError(
+        'This cannot be used in a non-browser context'
+      )
     this.bridgeUrl = bridgeUrl
+    this.bridge = new Bridge({ bridgeUrl })
+    this.bridge.on('close', () => {
+      this.emit(ResponseEvents.CLOSE)
+      this.close()
+    })
     this.configuration = { providers }
-    this.iframeReference = iframeReference
-    this.iframeReference.src = bridgeUrl
-    this.iframeReference.allow = 'camera *; microphone *'
+  }
+
+  public enable(): void {
     window.addEventListener('message', this.handleMessage)
+    this.bridge.open()
   }
 
-  private send(method: string, params: unknown): void {
-    if (!this.iframeReference.contentWindow)
-      throw createError(`The iframe hasn't been rendered yet`)
-    this.iframeReference.contentWindow.postMessage(
-      JSON.stringify({ method, params, sender: '@avatarconnect/sdk' }),
-      '*'
-    )
-  }
-
-  private disable(): void {
+  public close(): void {
     window.removeEventListener('message', this.handleMessage)
+    this.bridge.close()
   }
 
   private setAvatar(params: BridgeResult): void {
     this.emit(ResponseEvents.RESULT, params)
-    this.disable()
+    this.close()
   }
 
   private handleMessage({ data, origin }: MessageEvent): void {
@@ -56,10 +49,16 @@ class AvatarConnect extends EventEmitter {
     if (sender !== '@avatarconnect/bridge') return
     switch (type) {
       case BridgeEvents.IFRAME_MOUNTED:
-        return this.send(OutboundEvents.CONFIGURE, this.configuration)
+        return this.bridge.sendMessage(
+          OutboundEvents.CONFIGURE,
+          this.configuration
+        )
       case BridgeEvents.ERROR:
         this.emit(ResponseEvents.ERROR, params as BridgeError)
         return
+      case BridgeEvents.CLOSE:
+        this.emit(ResponseEvents.CLOSE)
+        return this.close()
       case BridgeEvents.RESULT:
         return this.setAvatar(params)
     }

@@ -26,6 +26,7 @@ module.exports = [
     entry: './src/index.ts',
     output: {
       filename: 'index.js',
+      globalObject: 'this',
       libraryTarget: 'umd',
       path: path.resolve(__dirname, 'dist'),
     },

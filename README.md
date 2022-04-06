@@ -27,21 +27,25 @@ $ yarn add @avatarconnect/sdk
 ```javascript
 import AvatarConnect from '@avatarconnect/sdk'
 
-const connector = new AvatarConnect(<iframeElementReference>, [
+const connector = new AvatarConnect([
+  ['ready-player-me', { gateway: 'mona' }],
   'crypto-avatars',
   'meebits',
-  ['ready-player-me', { gateway: 'mona' }],
 ])
 
-connector.on('error', handleError)
+connector.enable()
 
+connector.on('close', handleClose)
+connector.on('error', handleError)
 connector.on('result', handleResult)
+
+connector.disable()
 ```
 
 ## API
 
 ```javascript
-new AvatarConnect(<reference to iframe element>, <providers>[, <options>])
+new AvatarConnect(<providers>[, <options>])
 ```
 
 ### Providers
