@@ -1,10 +1,7 @@
 import { EventEmitter } from 'events'
 
 import { BridgeEvents, OutboundEvents, ResponseEvents } from './events'
-
-interface SdkConfiguration {
-  providers: object
-}
+import { BridgeError, BridgeResult, SdkConfiguration } from './types'
 
 const MAJOR_VERSION = '__WEBPACK_VERSION_STUB__'
 const DEFAULT_BRIDGE_URL = `https://v${MAJOR_VERSION}.avatarconnect.org`
@@ -19,7 +16,7 @@ class AvatarConnect extends EventEmitter {
 
   constructor(
     iframeReference: HTMLIFrameElement,
-    providers = {},
+    providers = [],
     { bridgeUrl = DEFAULT_BRIDGE_URL } = {}
   ) {
     super()
@@ -32,10 +29,10 @@ class AvatarConnect extends EventEmitter {
     this.iframeReference = iframeReference
     this.iframeReference.src = bridgeUrl
     this.iframeReference.allow = 'camera *; microphone *'
-    window.addEventListener('message', this._handleMessage)
+    window.addEventListener('message', this.handleMessage)
   }
 
-  send(method: string, params: unknown): void {
+  private send(method: string, params: unknown): void {
     if (!this.iframeReference.contentWindow)
       throw createError(`The iframe hasn't been rendered yet`)
     this.iframeReference.contentWindow.postMessage(
@@ -44,16 +41,16 @@ class AvatarConnect extends EventEmitter {
     )
   }
 
-  disable(): void {
-    window.removeEventListener('message', this._handleMessage)
+  private disable(): void {
+    window.removeEventListener('message', this.handleMessage)
   }
 
-  private setAvatar(params: unknown): void {
+  private setAvatar(params: BridgeResult): void {
     this.emit(ResponseEvents.RESULT, params)
     this.disable()
   }
 
-  _handleMessage({ data, origin }: MessageEvent): void {
+  private handleMessage({ data, origin }: MessageEvent): void {
     if (origin !== this.bridgeUrl) return
     const { params, sender, type } = JSON.parse(data)
     if (sender !== '@avatarconnect/bridge') return
@@ -61,7 +58,7 @@ class AvatarConnect extends EventEmitter {
       case BridgeEvents.IFRAME_MOUNTED:
         return this.send(OutboundEvents.CONFIGURE, this.configuration)
       case BridgeEvents.ERROR:
-        this.emit(ResponseEvents.ERROR, params)
+        this.emit(ResponseEvents.ERROR, params as BridgeError)
         return
       case BridgeEvents.RESULT:
         return this.setAvatar(params)
