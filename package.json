@@ -2,6 +2,7 @@
   "name": "@avatarconnect/sdk",
   "version": "0.0.1",
   "description": "One toolkit to integrate every avatar project",
+  "private": false,
   "keywords": [
     "AvatarConnect",
     "avatars",
@@ -12,6 +13,13 @@
     "metaverse",
     "sdk"
   ],
+  "contributors": [
+    {
+      "name": "Alex Patin",
+      "email": "alex@mona.gallery",
+      "url": "https://www.patin.xyz"
+    }
+  ],
   "files": [
     "/dist"
   ],
@@ -19,7 +27,7 @@
     "node": ">=10"
   },
   "license": "MIT",
-  "author": "Alex Patin",
+  "author": "MoNA Gallery, Inc.",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/AvatarConnect/sdk.git"
