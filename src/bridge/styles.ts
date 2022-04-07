@@ -13,7 +13,7 @@ const styles = `
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  padding: 12px;
+  padding: 6px;
 }
 
 .avatarconnect__modal__overlay {
@@ -33,10 +33,10 @@ const styles = `
 .avatarconnect__modal__content {
   position: relative;
   background: #f3f4f6;
-  width: calc(100% - 24px);
-  height: calc(100% - 24px);
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
   max-width: 800px;
-  max-height: 500px;
+  max-height: 600px;
   z-index: 10000;
   overflow: hidden;
   border-radius: 20px;

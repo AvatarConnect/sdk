@@ -18,3 +18,9 @@ export interface BridgeError {
   details: unknown
   message: string
 }
+
+export interface BridgeEvent {
+  event: string
+  params: unknown
+  sender: string
+}

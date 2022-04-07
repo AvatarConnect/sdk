@@ -7,6 +7,9 @@ export const BridgeEvents = {
   /** Triggered when the close button is clicked */
   CLOSE: 'close',
 
+  /** Triggered by the iframe to console log arbitrary data */
+  DEBUG: 'debug',
+
   /** Triggered when an error occurs in the iframe */
   ERROR: 'error',
 

@@ -91,8 +91,8 @@ class Bridge extends EventEmitter {
     if (!this.iframeReference.contentWindow)
       throw new AvatarConnectError(`The iframe hasn't been rendered yet`)
     this.iframeReference.contentWindow.postMessage(
-      JSON.stringify({ method, params, sender: '@avatarconnect/sdk' }),
-      '*'
+      JSON.stringify({ event: method, params, sender: '@avatarconnect/sdk' }),
+      this.bridgeUrl
     )
   }
 
