@@ -142,9 +142,12 @@ class Bridge extends EventEmitter {
   }
 
   private createIframe(): void {
+    const { maxHeight: height, maxWidth: width } = this.styleConfiguration
     this.iframeReference = createElement('iframe', 'avatarconnect__iframe', {
       allow: 'camera *; microphone *',
+      height,
       src: this.bridgeUrl,
+      width,
     }) as HTMLIFrameElement
     this.modalContentReference?.appendChild(this.iframeReference)
   }

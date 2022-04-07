@@ -55,6 +55,7 @@
     "prettier-config-monaverse": "^0.1.1",
     "rimraf": "^3.0.2",
     "string-replace-loader": "^3.1.0",
+    "tailwind": "^3.0.1",
     "ts-loader": "^9.2.8",
     "typescript": "4.1.3",
     "typescript-transform-paths": "^3.3.1",

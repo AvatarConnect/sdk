@@ -23,9 +23,9 @@ class AvatarConnect extends EventEmitter {
     providers = [],
     {
       bridgeUrl = DEFAULT_BRIDGE_URL,
-      maxWidth,
-      maxHeight,
-      padding,
+      maxWidth = 800,
+      maxHeight = 600,
+      padding = 6,
     }: SdkOptions = {}
   ) {
     super()
