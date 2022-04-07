@@ -1,7 +1,13 @@
+import { StyleConfiguration } from './types'
+
 export const TRANSITION_SHORT = 300
 export const TRANSITION_LONG = 450
 
-const styles = `
+const getStyles = ({
+  maxHeight = 600,
+  maxWidth = 800,
+  padding = 6,
+}: StyleConfiguration = {}): string => `
 .avatarconnect__modal {
   position: fixed;
   left: 0;
@@ -13,7 +19,7 @@ const styles = `
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  padding: 6px;
+  padding: ${padding}px;
 }
 
 .avatarconnect__modal__overlay {
@@ -33,10 +39,10 @@ const styles = `
 .avatarconnect__modal__content {
   position: relative;
   background: #f3f4f6;
-  width: calc(100% - 12px);
-  height: calc(100% - 12px);
-  max-width: 800px;
-  max-height: 600px;
+  width: calc(100% - ${padding * 2}px);
+  height: calc(100% - ${padding * 2}px);
+  max-width: ${maxWidth}px;
+  max-height: ${maxHeight}px;
   z-index: 10000;
   overflow: hidden;
   border-radius: 20px;
@@ -184,4 +190,4 @@ const styles = `
 }
 `
 
-export default styles
+export default getStyles

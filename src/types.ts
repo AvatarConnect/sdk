@@ -5,8 +5,15 @@ interface ConfiguredProviderTuple extends Array<string | object> {
 
 type Provider = string | ConfiguredProviderTuple
 
-export interface SdkConfiguration {
+export interface BridgeConfiguration {
   providers: Provider[]
+}
+
+export interface SdkOptions {
+  bridgeUrl?: string
+  maxHeight?: number
+  maxWidth?: number
+  padding?: number
 }
 
 export interface BridgeResult {

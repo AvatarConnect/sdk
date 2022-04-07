@@ -3,11 +3,8 @@ import { EventEmitter } from 'events'
 
 import { AvatarConnectError } from '../errors'
 
-import styles, { TRANSITION_LONG, TRANSITION_SHORT } from './styles'
-
-interface BridgeConfiguration {
-  bridgeUrl: string
-}
+import getStyles, { TRANSITION_LONG, TRANSITION_SHORT } from './getStyles'
+import { StyleConfiguration } from './types'
 
 const createElement = (
   tag: string,
@@ -30,10 +27,12 @@ class Bridge extends EventEmitter {
   private modalOverlayReference?: HTMLDivElement
   private spinnerReference?: HTMLDivElement
   private readonly bridgeUrl: string
+  private readonly styleConfiguration: StyleConfiguration
 
-  constructor({ bridgeUrl }: BridgeConfiguration) {
+  constructor(bridgeUrl: string, styleConfiguration: StyleConfiguration = {}) {
     super()
     this.bridgeUrl = bridgeUrl
+    this.styleConfiguration = styleConfiguration
     this.loadStylesheet()
   }
 
@@ -101,7 +100,9 @@ class Bridge extends EventEmitter {
     const style = document.createElement('style')
     head.appendChild(style)
     style.type = 'text/css'
-    style.appendChild(document.createTextNode(styles))
+    style.appendChild(
+      document.createTextNode(getStyles(this.styleConfiguration))
+    )
   }
 
   private createModal(): void {

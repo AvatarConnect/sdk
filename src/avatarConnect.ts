@@ -4,10 +4,11 @@ import Bridge from './bridge'
 import { AvatarConnectError } from './errors'
 import { BridgeEvents, OutboundEvents, ResponseEvents } from './events'
 import {
+  BridgeConfiguration,
   BridgeError,
   BridgeResult,
   BridgeEvent,
-  SdkConfiguration,
+  SdkOptions,
 } from './types'
 
 const MAJOR_VERSION = '__WEBPACK_VERSION_STUB__'
@@ -15,17 +16,25 @@ const DEFAULT_BRIDGE_URL = `https://v${MAJOR_VERSION}.avatarconnect.org`
 
 class AvatarConnect extends EventEmitter {
   private readonly bridgeUrl: string
-  private readonly configuration: SdkConfiguration
+  private readonly configuration: BridgeConfiguration
   private readonly bridge: Bridge
 
-  constructor(providers = [], { bridgeUrl = DEFAULT_BRIDGE_URL } = {}) {
+  constructor(
+    providers = [],
+    {
+      bridgeUrl = DEFAULT_BRIDGE_URL,
+      maxWidth,
+      maxHeight,
+      padding,
+    }: SdkOptions = {}
+  ) {
     super()
     if (!window)
       throw new AvatarConnectError(
         'This cannot be used in a non-browser context'
       )
     this.bridgeUrl = bridgeUrl
-    this.bridge = new Bridge({ bridgeUrl })
+    this.bridge = new Bridge(bridgeUrl, { maxHeight, maxWidth, padding })
     this.bridge.on('close', () => {
       this.emit(ResponseEvents.CLOSE)
       this.close()
