@@ -7,7 +7,7 @@ The JavaScript sdk for integrating AvatarConnect into your web-based metaverse
 Via CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@avatarconnect/sdk@0.0.1/dist/browser.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@avatarconnect/sdk@0.0.1/dist/index.js"></script>
 ```
 
 Using npm:
@@ -56,7 +56,7 @@ new AvatarConnect(<providers>[, <options>])
 
 ### Providers
 
-TODO: Add documentation about providers here
+Check out our docs for more info on provider configurations
 
 ### Options
 

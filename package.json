@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "One toolkit to integrate every avatar project",
   "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "browser": "dist/index.js",
+  "types": "dist/index.d.ts",
   "keywords": [
     "AvatarConnect",
     "avatars",
@@ -36,15 +40,12 @@
     "url": "https://github.com/AvatarConnect/sdk/issues"
   },
   "homepage": "https://github.com/AvatarConnect/sdk",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "clean": "./node_modules/.bin/rimraf dist workers",
     "build": "yarn clean && webpack",
     "lint": "./node_modules/.bin/eslint --fix .",
     "pub": "yarn lint && yarn build && yarn publish"
   },
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "^17.0.22",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
