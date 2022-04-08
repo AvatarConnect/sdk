@@ -17,8 +17,12 @@ export interface SdkOptions {
 }
 
 export interface BridgeResult {
-  [key: string]: unknown
-  type: string
+  avatar: {
+    type: string
+    uri: string
+  }
+  metadata: unknown
+  provider: string
 }
 
 export interface BridgeError {
