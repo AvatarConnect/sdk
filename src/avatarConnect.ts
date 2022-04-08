@@ -68,9 +68,8 @@ class AvatarConnect extends EventEmitter {
           this.configuration
         )
       case BridgeEvents.DEBUG:
-        // @ts-expect-error debug params are an array
         // eslint-disable-next-line no-console
-        console.log(...params)
+        console.log(...(params as unknown[]))
         return
       case BridgeEvents.ERROR:
         this.emit(ResponseEvents.ERROR, params as BridgeError)
