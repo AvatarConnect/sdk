@@ -27,12 +27,14 @@ module.exports = [
     output: {
       filename: 'index.js',
       globalObject: 'this',
+      library: 'AvatarConnect',
+      libraryExport: 'default',
       libraryTarget: 'umd',
       path: path.resolve(__dirname, 'dist'),
     },
     rules: [
       {
-        test: /index\.ts$/,
+        test: /avatarConnect\.ts$/,
         loader: 'string-replace-loader',
         options: {
           search: '__WEBPACK_VERSION_STUB__',

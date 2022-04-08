@@ -4,6 +4,12 @@ The JavaScript sdk for integrating AvatarConnect into your web-based metaverse
 
 ## Installing
 
+Via CDN:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@avatarconnect/sdk@0.0.1/dist/browser.js"></script>
+```
+
 Using npm:
 
 ```bash
@@ -57,6 +63,6 @@ TODO: Add documentation about providers here
 | Option          | Description                                                                                                          | Default                        |
 | --------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | **`bridgeUrl`** | Pass in a custom url for your own hosted version of [@avatarconnect/bridge](https://github.com/AvatarConnect/bridge) | `https://v0.avatarconnect.org` |
-| **`maxWidth`**  | Max width of the modal's content (in pixels)                                                                         | `600`                          |
-| **`maxWidth`**  | Max height of the modal's content (in pixels)                                                                        | `800`                          |
+| **`maxHeight`** | Max height of the modal's content (in pixels)                                                                        | `600`                          |
+| **`maxWidth`**  | Max width of the modal's content (in pixels)                                                                         | `800`                          |
 | **`padding`**   | The padding on the sides of the modal at full width (in pixels)                                                      | `6`                            |
