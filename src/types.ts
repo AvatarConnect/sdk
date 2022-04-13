@@ -23,6 +23,7 @@ export interface BridgeResult {
   }
   metadata: unknown
   provider: string
+  version: string
 }
 
 export interface BridgeError {
