@@ -45,7 +45,7 @@ connector.on('close', handleClose)
 connector.on('error', handleError)
 connector.on('result', handleResult)
 
-connector.disable()
+connector.close()
 ```
 
 ## API
