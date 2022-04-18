@@ -39,13 +39,17 @@ const connector = new AvatarConnect([
   'meebits',
 ])
 
+// Display the AvatarConnect modal
 connector.enable()
 
 connector.on('close', handleClose)
 connector.on('error', handleError)
+
+// Pass the result into the AvatarConnect plugin for your game engine
 connector.on('result', handleResult)
 
-connector.close()
+// Hide the AvatarConnect modal
+connector.disable()
 ```
 
 ## API

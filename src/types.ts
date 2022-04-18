@@ -18,6 +18,7 @@ export interface SdkOptions {
 
 export interface BridgeResult {
   avatar: {
+    format: string
     type: string
     uri: string
   }

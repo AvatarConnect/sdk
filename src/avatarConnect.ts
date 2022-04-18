@@ -37,7 +37,7 @@ class AvatarConnect extends EventEmitter {
     this.bridge = new Bridge(bridgeUrl, { maxHeight, maxWidth, padding })
     this.bridge.on('close', () => {
       this.emit(ResponseEvents.CLOSE)
-      this.close()
+      this.disable()
     })
     this.configuration = { providers }
   }
@@ -47,14 +47,14 @@ class AvatarConnect extends EventEmitter {
     this.bridge.open()
   }
 
-  public close(): void {
+  public disable(): void {
     window.removeEventListener('message', this.handleMessage.bind(this))
     this.bridge.close()
   }
 
   private setAvatar(params: BridgeResult): void {
     this.emit(ResponseEvents.RESULT, params)
-    this.close()
+    this.disable()
   }
 
   private handleMessage({ data, origin }: MessageEvent): void {
@@ -76,7 +76,7 @@ class AvatarConnect extends EventEmitter {
         return
       case BridgeEvents.CLOSE:
         this.emit(ResponseEvents.CLOSE)
-        return this.close()
+        return this.disable()
       case BridgeEvents.RESULT:
         return this.setAvatar(params as BridgeResult)
     }

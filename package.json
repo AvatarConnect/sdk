@@ -1,6 +1,6 @@
 {
   "name": "@avatarconnect/sdk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "One toolkit to integrate every avatar project",
   "private": false,
   "main": "dist/index.js",
