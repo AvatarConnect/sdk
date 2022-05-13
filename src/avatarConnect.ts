@@ -9,6 +9,7 @@ import {
   BridgeResult,
   BridgeEvent,
   SdkOptions,
+  Provider,
 } from './types'
 
 const MAJOR_VERSION = '__WEBPACK_VERSION_STUB__'
@@ -20,7 +21,7 @@ class AvatarConnect extends EventEmitter {
   private readonly bridge: Bridge
 
   constructor(
-    providers = [],
+    providers: Provider[] = [],
     {
       bridgeUrl = DEFAULT_BRIDGE_URL,
       maxWidth = 800,

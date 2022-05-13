@@ -3,7 +3,7 @@ interface ConfiguredProviderTuple extends Array<string | object> {
   1: object
 }
 
-type Provider = string | ConfiguredProviderTuple
+export type Provider = string | ConfiguredProviderTuple
 
 export interface BridgeConfiguration {
   providers: Provider[]
